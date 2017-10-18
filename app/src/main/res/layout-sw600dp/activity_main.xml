@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="0dp"
-        android:id="@+id/R"
+        android:id="@+id/L"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
@@ -15,7 +15,7 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_weight="2"
-        android:id="@+id/L"
+        android:id="@+id/R"
         android:layout_height="match_parent">
 
     </FrameLayout>

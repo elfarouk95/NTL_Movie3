@@ -71,19 +71,20 @@ public class Details_Fragment extends Fragment {
     ArrayAdapter arrayAdapter;
     ArrayList<Review_model> review_models;
     ListView listView;
-    public ArrayList<String>con(ArrayList<Review_model>reviews_models)
+    public String con(ArrayList<Review_model>reviews_models)
     {
-        ArrayList<String>arrayList = new ArrayList<>();
+        String review="Reviews \n\n\n";
         for (int i=0;i<reviews_models.size();i++)
         {
-            arrayList.add(reviews_models.get(i).gettotal());
+            review+=reviews_models.get(i).gettotal()+"\n";
         }
-
-        return arrayList;
+        review+="\n\n\n"+"trailers";
+       return review;
     }
 
     ImageButton LikeBTn;
     DB_helper db_helper;
+
 
     Button Trailer;
     @Override
@@ -99,7 +100,7 @@ public class Details_Fragment extends Fragment {
 
 
         ratingBar =(RatingBar)v.findViewById(R.id.ratingBar);
-        listView =(ListView)v.findViewById(R.id.ReviewList);
+       // listView =(ListView)v.findViewById(R.id.ReviewList);
         try {
             review_models=ParseMovieJson.ParseReview(Json);
 
@@ -107,9 +108,11 @@ public class Details_Fragment extends Fragment {
             textView.setText("Reviews");
             textView.setTextSize(20);
 
-            listView.addHeaderView(textView);
-            arrayAdapter = new ArrayAdapter(getActivity().getApplication().getApplicationContext(),android.R.layout.simple_list_item_1,con(review_models));
-            listView.setAdapter(arrayAdapter);
+            ((TextView)v.findViewById(R.id.review)).setText(con(review_models));
+
+           // listView.addHeaderView(textView);
+          //  arrayAdapter = new ArrayAdapter(getActivity().getApplication().getApplicationContext(),android.R.layout.simple_list_item_1,con(review_models));
+          //  listView.setAdapter(arrayAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -129,7 +132,7 @@ public class Details_Fragment extends Fragment {
         Picasso.with(getActivity().getApplication().getApplicationContext()).load("http://image.tmdb.org/t/p/w1000"+item.backdrop_path).into(backposter);
         ((TextView)v.findViewById(R.id.orginaltitle)).setText(item.getOriginal_title());
         ((TextView)v.findViewById(R.id.overview)).setText(item.getOverview());
-
+        ((TextView)v.findViewById(R.id.relasedate)).setText(item.getRelease_date());
         LikeBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,10 +158,12 @@ public class Details_Fragment extends Fragment {
     ListView Videolistviw;
     ArrayAdapter arrayAdaptervideo;
     ArrayList<String>VideoLink;
+ArrayList<String>VideoText;
 
     void movieTrailer(String Id)
     {
         VideoLink = new ArrayList<>();
+        VideoText= new ArrayList<>();
         String url ="https://api.themoviedb.org/3/movie/"+Id+"/videos?api_key=63103295acf92a181b68289f20ca0e98";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
@@ -173,14 +178,11 @@ public class Details_Fragment extends Fragment {
                         JSONObject film = ArrayMovie.getJSONObject(i);
                        // Toast.makeText(getActivity().getApplication().getApplicationContext(), film.getString("key"), Toast.LENGTH_SHORT).show();
                         VideoLink.add(film.getString("key").toString());
+                        VideoText.add("Watch Tariler  Now "+(i+1)+" : "+VideoLink.get(i));
                     }
-                    arrayAdapter=new ArrayAdapter(getActivity().getApplication().getApplicationContext(),android.R.layout.simple_list_item_1,VideoLink);
+                    arrayAdapter=new ArrayAdapter(getActivity().getApplication().getApplicationContext(),android.R.layout.simple_list_item_1,VideoText);
                     Videolistviw.setAdapter(arrayAdapter);
-                    TextView textView = new TextView(getActivity().getApplicationContext());
-                    textView.setText("videos");
-                    textView.setTextSize(20);
 
-                    Videolistviw.addHeaderView(textView);
                     Videolistviw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

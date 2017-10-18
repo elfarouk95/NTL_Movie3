@@ -87,7 +87,7 @@ public class FilmsViewFragment extends Fragment implements RecyclerViewAdpt.Item
     }
 
     ArrayList<Film_Model>movies;
-    MovieContnetProvider movieContnetProvider;
+   // MovieContnetProvider movieContnetProvider;
     View v ;
     RecyclerViewAdpt adpter;
     DB_helper db;
@@ -125,7 +125,7 @@ public class FilmsViewFragment extends Fragment implements RecyclerViewAdpt.Item
                     recyclerView.setLayoutManager(GridLayoutManager);
 
                      recyclerView.setAdapter(adpter);
-            recyclerView.scrollToPosition(6);
+           // recyclerView.scrollToPosition(6);
                      adpter.setClickListener(this);
                       } catch (JSONException e) {
                              e.printStackTrace();
@@ -164,7 +164,7 @@ public class FilmsViewFragment extends Fragment implements RecyclerViewAdpt.Item
         startActivity(n);*/
     }
 
-    private  int positionIndex ;
+    private static   int positionIndex ;
     private int topView;
     @Override
     public void onPause() {
@@ -180,7 +180,7 @@ public class FilmsViewFragment extends Fragment implements RecyclerViewAdpt.Item
        // Toast.makeText(context, "here", Toast.LENGTH_SHORT).show();
        // recyclerView.scrollToPosition(16);
        // recyclerView.smoothScrollToPosition(15);
-        if (positionIndex!= -1) {
+        if (positionIndex >1) {
             GridLayoutManager.scrollToPositionWithOffset(positionIndex, 0);
        }
     }
@@ -232,6 +232,7 @@ private ArrayList <Film_Model> Cr(Cursor cursor)
 
 
 }
+
 
 
 }

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1:
-                url = "http://api.themoviedb.org/3/discover/movie?api_key=63103295acf92a181b68289f20ca0e98";
+                url = "https://api.themoviedb.org/3/movie/popular?api_key=63103295acf92a181b68289f20ca0e98&language=en-US&page=1";
 
                 Type ="F";
               //  Toast.makeText(getApplicationContext(),"Item 1 Selected",Toast.LENGTH_LONG).show();
@@ -98,7 +98,7 @@ Type="P";
             Type=savedInstanceState.getString("Type");
         }
         else {
-            url = "http://api.themoviedb.org/3/discover/movie?api_key=63103295acf92a181b68289f20ca0e98";
+            url = "https://api.themoviedb.org/3/movie/popular?api_key=63103295acf92a181b68289f20ca0e98&language=en-US&page=1";
        Type="P";
         }
 
@@ -164,7 +164,11 @@ Type="P";
     int fragment;
     void call (final boolean istablet, final String Type)
     {
-
+        if (istablet) {
+            fragment = R.id.contentman;
+        } else {
+            fragment = R.id.L;
+        }
         if (Type.equals("F"))
         {
             f = new FilmsViewFragment(this,"",Type);
